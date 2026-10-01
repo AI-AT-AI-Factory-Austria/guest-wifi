@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#0059EF">
+  <title>Guest Wi-Fi</title>
+  <style>
+    :root {
+      --blue: #0059EF;
+      --white: #ffffff;
+      --teal: #C6F2B8;
+      --soft: rgba(255, 255, 255, 0.7);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 40px 20px 56px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--blue);
+      color: var(--white);
+      line-height: 1.5;
+    }
+    main { max-width: 440px; margin: 0 auto; }
+    .hero { text-align: center; }
+    .logo { width: 116px; height: 116px; display: block; margin: 0 auto 24px; }
+    h1 { font-size: 2.4rem; font-weight: 700; margin: 0 0 32px; letter-spacing: -0.01em; }
+    .label {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin: 0 0 8px;
+      text-align: center;
+    }
+    .network { font-size: 1.8rem; font-weight: 700; margin: 0 0 24px; text-align: center; }
+    .field {
+      background: var(--white);
+      color: var(--blue);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .username {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      word-break: break-all;
+      user-select: all;
+      -webkit-user-select: all;
+    }
+    .field.muted { color: #5b6b8c; font-size: 0.95rem; }
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 24px;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--teal);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button.copied { background: var(--white); }
+    .steps {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+    h2 { font-size: 1.15rem; margin: 0 0 10px; }
+    ol { margin: 0; padding-left: 20px; }
+    ul { margin: 6px 0 0; padding-left: 18px; }
+    li { margin-bottom: 6px; }
+    .value { color: var(--teal); font-weight: 700; }
+    .note { font-size: 0.9rem; color: var(--soft); margin: 12px 0 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="hero">
+      <svg class="logo" viewBox="0 0 200 200" aria-hidden="true">
+        <path fill="#ffffff" d="M112 18C160 14 196 58 186 112C176 166 128 196 80 186C34 176 6 132 18 88C30 44 64 22 112 18Z"/>
+        <g fill="none" stroke="#0059EF" stroke-width="10" stroke-linecap="round">
+          <path d="M50.5 80.5A70 70 0 0 1 149.5 80.5"/>
+          <path d="M66.1 96.1A48 48 0 0 1 133.9 96.1"/>
+          <path d="M81.6 111.6A26 26 0 0 1 118.4 111.6"/>
+          <path d="M100 130V136"/>
+        </g>
+      </svg>
+      <h1>Guest Wi-Fi</h1>
+    </div>
+
+    <p class="label">Network</p>
+    <p class="network">eduroam</p>
+
+    <p class="label">User ID</p>
+    <div class="field username" id="username">zntxF-qmKec@univieguest@univie.ac.at</div>
+    <button type="button" id="copy-button">Copy user ID</button>
+
+    <p class="label">Password</p>
+    <div class="field muted">Written on the printed sheet</div>
+
+    <section class="steps">
+      <h2>iPhone / iPad</h2>
+      <ol>
+        <li>Tap <strong>Copy user ID</strong> above.</li>
+        <li>Open <strong>Settings &rarr; Wi-Fi</strong> and tap <strong>eduroam</strong>.</li>
+        <li>Paste the user ID, then type the password from the sheet.</li>
+        <li>Tap <strong>Join</strong>, then <strong>Trust</strong> on the certificate prompt.</li>
+      </ol>
+      <p class="note">Copy the user ID before opening Settings. Switching back to this page closes the Wi-Fi login window.</p>
+    </section>
+
+    <section class="steps">
+      <h2>Android</h2>
+      <ol>
+        <li>Tap <strong>Copy user ID</strong> above.</li>
+        <li>Open <strong>Settings &rarr; Wi-Fi</strong> and tap <strong>eduroam</strong>.</li>
+        <li>Choose these settings:
+          <ul>
+            <li>EAP method: <span class="value">PEAP</span></li>
+            <li>Phase 2 authentication: <span class="value">MSCHAPV2</span></li>
+            <li>CA certificate: <span class="value">Use system certificates</span></li>
+            <li>Domain: <span class="value">univie.ac.at</span></li>
+            <li>Identity: paste the user ID</li>
+            <li>Anonymous identity: leave empty</li>
+            <li>Password: from the sheet</li>
+          </ul>
+        </li>
+        <li>Tap <strong>Connect</strong>.</li>
+      </ol>
+      <p class="note">On some phones, Phase 2 is hidden under <strong>Advanced options</strong>.</p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var button = document.getElementById("copy-button");
+      var username = document.getElementById("username").textContent.trim();
+
+      function fallbackCopy(text) {
+        var field = document.createElement("textarea");
+        field.value = text;
+        field.setAttribute("readonly", "");
+        field.style.position = "absolute";
+        field.style.left = "-9999px";
+        document.body.appendChild(field);
+        field.select();
+        field.setSelectionRange(0, text.length);
+        var ok = document.execCommand("copy");
+        document.body.removeChild(field);
+        return ok;
+      }
+
+      function showCopied() {
+        button.textContent = "Copied!";
+        button.classList.add("copied");
+        setTimeout(function () {
+          button.textContent = "Copy user ID";
+          button.classList.remove("copied");
+        }, 2000);
+      }
+
+      button.addEventListener("click", function () {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(username).then(showCopied, function () {
+            if (fallbackCopy(username)) showCopied();
+          });
+        } else if (fallbackCopy(username)) {
+          showCopied();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
